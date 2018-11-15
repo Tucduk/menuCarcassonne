@@ -8,6 +8,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -77,6 +78,7 @@ public class menu extends Application {
             @Override
             public void handle(MouseEvent event) {
                 mon_model.setNbJoueurs((int)mon_model.getComboBox().getValue());
+                mon_model.setNbJoueurs2(mon_model.getNbJoueurs());
                 System.out.println(mon_model.getNbJoueurs());
                 mon_model.setDisplay(3);
                 switchDisplay();
@@ -93,6 +95,7 @@ public class menu extends Application {
 
         Label noms = new Label("Nom du joueur: ");
         TextField labelnom = new TextField();
+        ComboBoxListCell tableCouleurs = new ComboBoxListCell(8);
 
         Rectangle vert = new Rectangle(25,25,Color.GREEN);
         Rectangle jaune = new Rectangle(25,25,Color.YELLOW);
@@ -132,6 +135,22 @@ public class menu extends Application {
             @Override
             public void handle(MouseEvent event) {
                 vert.setOpacity(20);
+
+            }
+        });
+
+        mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                mon_model.setNbJoueurs2(mon_model.getNbJoueurs2()-1);
+                System.out.println(mon_model.getNbJoueurs2());
+                if (mon_model.getNbJoueurs2() == 0){
+                    mon_model.setDisplay(0);
+                    switchDisplay();
+                }else {
+                    mon_model.setDisplay(3);
+                    switchDisplay();
+                }
 
             }
         });
@@ -242,16 +261,4 @@ public class menu extends Application {
             }
         });
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

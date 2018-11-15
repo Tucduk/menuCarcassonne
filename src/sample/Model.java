@@ -32,11 +32,12 @@ public class Model extends Parent {
     final ComboBox comboBox = new ComboBox(options);
     private Button b_suivant = new Button("Suivant");
     //element choix couleurs
+    private int nbJoueurs2 = 0;
     private int joueurEnCoursDeCreation = 1;
     private String[] tabNomJoueurs = new String[nbJoueurs];
     private Color[] joueurColors = new Color[nbJoueurs];
-
     //fonctions
+
     public int verifDifferent(){ //verification pour savoir si toute les valeurs sont différentes
                                   // et sinon savoir lesquelles ne vont pas
         int nberreur = 0;
@@ -77,6 +78,14 @@ public class Model extends Parent {
 
     //Getter/Setter
 
+
+    public int getNbJoueurs2() {
+        return nbJoueurs2;
+    }
+
+    public void setNbJoueurs2(int nbJoueurs2) {
+        this.nbJoueurs2 = nbJoueurs2;
+    }
 
     public int getJoueurEnCoursDeCreation() {
         return joueurEnCoursDeCreation;
