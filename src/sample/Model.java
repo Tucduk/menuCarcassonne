@@ -6,7 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.cell.ComboBoxListCell;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+
+import java.awt.*;
 
 public class Model extends Parent {
     //Variables
@@ -32,8 +39,29 @@ public class Model extends Parent {
     final ComboBox comboBox = new ComboBox(options);
     private Button b_suivant = new Button("Suivant");
     //element choix couleurs
-    private int nbJoueurs2 = 0;
     private int joueurEnCoursDeCreation = 1;
+    private int nbJoueurs2 = 0;
+    private VBox vBox = new VBox();
+    private HBox nom = new HBox();
+    private HBox couleurs = new HBox();
+    private Label noms = new Label("Nom du joueur: ");
+    private javafx.scene.control.TextField labelnom = new TextField();
+    private ComboBoxListCell tableCouleurs = new ComboBoxListCell(8);
+
+    private Label couleursDuJoueurs = new Label("Couleurs du joueur " + joueurEnCoursDeCreation + ":" );
+    private Label couleurSelectionnée = new Label("   Couleur sélectionner :  ");
+
+    private Rectangle vert = new Rectangle(25,25,Color.GREEN);
+    private Rectangle jaune = new Rectangle(25,25,Color.GOLD);
+    private Rectangle rouge = new Rectangle(25,25,Color.RED);
+    private Rectangle bleu = new Rectangle(25,25,Color.BLUE);
+    private Rectangle noir = new Rectangle(25,25,Color.BLACK);
+    private Rectangle rose = new Rectangle(25,25,Color.PINK);
+    private Rectangle violet = new Rectangle(25,25,Color.BLUEVIOLET);
+    private Rectangle chartreuse = new Rectangle(25,25,Color.CHARTREUSE);
+    private Rectangle gris = new Rectangle(25,25,Color.GREY);
+    private Rectangle[] tabRectangle = {vert,jaune,rouge,bleu,noir,rose,violet,chartreuse,gris};
+
     private String[] tabNomJoueurs = new String[nbJoueurs];
     private Color[] joueurColors = new Color[nbJoueurs];
     //fonctions
@@ -75,9 +103,91 @@ public class Model extends Parent {
         return nberreur;
     }
 
+    public void changeSelectCouleur(int i){
+        Rectangle e = getTabRectangle()[i];
+        tabRectangle[i] = tabRectangle[tabRectangle.length-1];
+        tabRectangle[tabRectangle.length-1] = e;
+    }
+
 
     //Getter/Setter
 
+
+    public Label getNoms() {
+        return noms;
+    }
+
+    public void setNoms(Label noms) {
+        this.noms = noms;
+    }
+
+    public TextField getLabelnom() {
+        return labelnom;
+    }
+
+    public void setLabelnom(TextField labelnom) {
+        this.labelnom = labelnom;
+    }
+
+    public ComboBoxListCell getTableCouleurs() {
+        return tableCouleurs;
+    }
+
+    public void setTableCouleurs(ComboBoxListCell tableCouleurs) {
+        this.tableCouleurs = tableCouleurs;
+    }
+
+    public Label getCouleursDuJoueurs() {
+        return couleursDuJoueurs;
+    }
+
+    public void setCouleursDuJoueurs(Label couleursDuJoueurs) {
+        this.couleursDuJoueurs = couleursDuJoueurs;
+    }
+
+    public Label getCouleurSelectionnée() {
+        return couleurSelectionnée;
+    }
+
+    public void setCouleurSelectionnée(Label couleurSelectionnée) {
+        this.couleurSelectionnée = couleurSelectionnée;
+    }
+
+    public void setTabError(boolean[][] tabError) {
+        this.tabError = tabError;
+    }
+
+    public VBox getvBox() {
+        return vBox;
+    }
+
+    public void setvBox(VBox vBox) {
+        this.vBox = vBox;
+    }
+
+    public HBox getNom() {
+        return nom;
+    }
+
+    public void setNom(HBox nom) {
+        this.nom = nom;
+    }
+
+    public HBox getCouleurs() {
+        return couleurs;
+    }
+
+    public void setCouleurs(HBox couleurs) {
+        this.couleurs = couleurs;
+    }
+
+    public Rectangle[] getTabRectangle() {
+        return tabRectangle;
+    }
+
+    public void setTabRectangle(Rectangle[] tabRectangle) {
+        this.tabRectangle = tabRectangle;
+    }
 
     public int getNbJoueurs2() {
         return nbJoueurs2;

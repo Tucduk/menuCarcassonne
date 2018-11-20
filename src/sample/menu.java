@@ -87,57 +87,56 @@ public class menu extends Application {
         });
 
     }
+    private void  action(){
+        for (int i = 0; i < mon_model.getTabRectangle().length-1; i++) {
+            final int x = i;
+            mon_model.getTabRectangle()[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    mon_model.getNom().getChildren().remove(mon_model.getTabRectangle()[mon_model.getTabRectangle().length-1]);
+                    for (int i = 0; i < mon_model.getTabRectangle().length-1; i++) {
+                        mon_model.getCouleurs().getChildren().remove(mon_model.getTabRectangle()[i]);
+                    }
+                    mon_model.changeSelectCouleur(x);
+                    mon_model.getNom().getChildren().add(mon_model.getTabRectangle()[mon_model.getTabRectangle().length-1]);
+                    mon_model.getNom().setAlignment(Pos.CENTER);
+                    for (int i = 0; i < mon_model.getTabRectangle().length-1; i++) {
+                        mon_model.getCouleurs().getChildren().add(mon_model.getTabRectangle()[i]);
+                    }
+                    mon_model.getCouleurs().setAlignment(Pos.CENTER);
+                    action();
+                }
+            });
+        }
+    }
 
     private void CouleurJoueursBis(int numJoueur){
-        VBox vBox = new VBox();
-        HBox nom = new HBox();
-        HBox couleurs = new HBox();
 
-        Label noms = new Label("Nom du joueur: ");
-        TextField labelnom = new TextField();
-        ComboBoxListCell tableCouleurs = new ComboBoxListCell(8);
+        mon_model.getNom().getChildren().add(mon_model.getNoms());
+        mon_model.getNom().getChildren().add(mon_model.getLabelnom());
+        mon_model.getNom().getChildren().add(mon_model.getCouleurSelectionnée());
+        mon_model.getNom().getChildren().add(mon_model.getTabRectangle()[mon_model.getTabRectangle().length-1]);
+        mon_model.getNom().setAlignment(Pos.CENTER);
 
-        Rectangle vert = new Rectangle(25,25,Color.GREEN);
-        Rectangle jaune = new Rectangle(25,25,Color.YELLOW);
-        Rectangle rouge = new Rectangle(25,25,Color.RED);
-        Rectangle bleu = new Rectangle(25,25,Color.BLUE);
-        Rectangle noir = new Rectangle(25,25,Color.BLACK);
-        Rectangle gris = new Rectangle(25,25,Color.GREY);
-        Rectangle violet = new Rectangle(25,25,Color.VIOLET);
-        Rectangle chartreuse = new Rectangle(25,25,Color.CHARTREUSE);
-        Label couleursDuJoueurs = new Label("Couleurs du joueur " + mon_model.getJoueurEnCoursDeCreation() + ":" );
+        for (int i = 0; i < mon_model.getTabRectangle().length-1; i++) {
+            mon_model.getCouleurs().getChildren().add(mon_model.getTabRectangle()[i]);
+        }
+        mon_model.getCouleurs().setAlignment(Pos.CENTER);
 
-        nom.getChildren().add(noms);
-        nom.getChildren().add(labelnom);
-        nom.setAlignment(Pos.CENTER);
 
-        couleurs.getChildren().add(vert);
-        couleurs.getChildren().add(jaune);
-        couleurs.getChildren().add(rouge);
-        couleurs.getChildren().add(bleu);
-        couleurs.getChildren().add(noir);
-        couleurs.getChildren().add(gris);
-        couleurs.getChildren().add(violet);
-        couleurs.getChildren().add(chartreuse);
-        couleurs.setAlignment(Pos.CENTER);
+        mon_model.getvBox().getChildren().add(mon_model.getNom());
+        mon_model.getvBox().getChildren().add(mon_model.getCouleursDuJoueurs());
 
-        vBox.getChildren().add(nom);
-        vBox.getChildren().add(couleursDuJoueurs);
+        mon_model.getCouleurs().setSpacing(10);
 
-        couleurs.setSpacing(10);
-        vBox.getChildren().add(couleurs);
-        vBox.getChildren().add(mon_model.getB_suivant());
-        vBox.setAlignment(Pos.CENTER);
-        vBox.setSpacing(10);
+        mon_model.getvBox().getChildren().add(mon_model.getCouleurs());
+        mon_model.getvBox().getChildren().add(mon_model.getB_suivant());
+        mon_model.getvBox().setAlignment(Pos.CENTER);
+        mon_model.getvBox().setSpacing(10);
 
-        borderPane.setCenter(vBox);
-        vert.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                vert.setOpacity(20);
-
-            }
-        });
+        borderPane.setCenter(mon_model.getvBox());
+        action();
+        
 
         mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
@@ -146,9 +145,15 @@ public class menu extends Application {
                 System.out.println(mon_model.getNbJoueurs2());
                 if (mon_model.getNbJoueurs2() == 0){
                     mon_model.setDisplay(0);
+                    mon_model.getvBox().getChildren().clear();
+                    mon_model.getNom().getChildren().clear();
+                    mon_model.getCouleurs().getChildren().clear();
                     switchDisplay();
                 }else {
                     mon_model.setDisplay(3);
+                    mon_model.getvBox().getChildren().clear();
+                    mon_model.getNom().getChildren().clear();
+                    mon_model.getCouleurs().getChildren().clear();
                     switchDisplay();
                 }
 
