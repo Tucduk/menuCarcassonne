@@ -13,14 +13,10 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-import java.awt.*;
-
 public class Model extends Parent {
     //Variables
     private int display = 0;
     private int nbJoueurs = 0;
-    private String[] nomJoueur;
-    private boolean[] tabError;
     private boolean error = false;
 
 
@@ -46,7 +42,6 @@ public class Model extends Parent {
     private HBox couleurs = new HBox();
     private Label noms = new Label("Nom du joueur: ");
     private javafx.scene.control.TextField labelnom = new TextField();
-    private ComboBoxListCell tableCouleurs = new ComboBoxListCell(8);
 
     private Label couleursDuJoueurs = new Label("Couleurs du joueur " + joueurEnCoursDeCreation + ":" );
     private Label couleurSelectionnée = new Label("   Couleur sélectionner :  ");
@@ -139,76 +134,32 @@ public class Model extends Parent {
         return noms;
     }
 
-    public void setNoms(Label noms) {
-        this.noms = noms;
-    }
-
     public TextField getLabelnom() {
         return labelnom;
-    }
-
-    public void setLabelnom(TextField labelnom) {
-        this.labelnom = labelnom;
-    }
-
-    public ComboBoxListCell getTableCouleurs() {
-        return tableCouleurs;
-    }
-
-    public void setTableCouleurs(ComboBoxListCell tableCouleurs) {
-        this.tableCouleurs = tableCouleurs;
     }
 
     public Label getCouleursDuJoueurs() {
         return couleursDuJoueurs;
     }
 
-    public void setCouleursDuJoueurs(Label couleursDuJoueurs) {
-        this.couleursDuJoueurs = couleursDuJoueurs;
-    }
-
     public Label getCouleurSelectionnée() {
         return couleurSelectionnée;
-    }
-
-    public void setCouleurSelectionnée(Label couleurSelectionnée) {
-        this.couleurSelectionnée = couleurSelectionnée;
-    }
-
-    public void setTabError(boolean[] tabError) {
-        this.tabError = tabError;
     }
 
     public VBox getvBox() {
         return vBox;
     }
 
-    public void setvBox(VBox vBox) {
-        this.vBox = vBox;
-    }
-
     public HBox getNom() {
         return nom;
-    }
-
-    public void setNom(HBox nom) {
-        this.nom = nom;
     }
 
     public HBox getCouleurs() {
         return couleurs;
     }
 
-    public void setCouleurs(HBox couleurs) {
-        this.couleurs = couleurs;
-    }
-
     public Rectangle[] getTabRectangle() {
         return tabRectangle;
-    }
-
-    public void setTabRectangle(Rectangle[] tabRectangle) {
-        this.tabRectangle = tabRectangle;
     }
 
     public int getNbJoueurs2() {
@@ -223,32 +174,8 @@ public class Model extends Parent {
         return joueurEnCoursDeCreation;
     }
 
-    public void setJoueurEnCoursDeCreation(int joueurEnCoursDeCreation) {
-        this.joueurEnCoursDeCreation = joueurEnCoursDeCreation;
-    }
-
-    public String[] getNomJoueur() {
-        return nomJoueur;
-    }
-
-    public void setNomJoueur(String[] nomJoueur) {
-        this.nomJoueur = nomJoueur;
-    }
-
     public boolean isError() {
         return error;
-    }
-
-    public void setError(boolean error) {
-        this.error = error;
-    }
-
-    public boolean[] getTabError() {
-        return tabError;
-    }
-
-    public Color[] getJoueurColors() {
-        return joueurColors;
     }
 
     public void setJoueurColors(Color[] joueurColors) {

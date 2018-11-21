@@ -5,9 +5,7 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
@@ -43,7 +41,6 @@ public class menu extends Application {
                 MenuJeu();
                 break;
             case 3:
-                /*CouleurJoueurs();*/
                 CouleurJoueursBis(mon_model.getJoueurEnCoursDeCreation());
                 break;
             default:
@@ -65,8 +62,6 @@ public class menu extends Application {
         hBox.setAlignment(Pos.CENTER);
         vBox.setAlignment(Pos.CENTER);
 
-
-
         borderPane.setCenter(vBox);
 
         mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -78,7 +73,6 @@ public class menu extends Application {
                 System.out.println(mon_model.getNbJoueurs());
                 mon_model.setDisplay(3);
                 switchDisplay();
-
             }
         });
 
@@ -136,8 +130,6 @@ public class menu extends Application {
         }
         action();
 
-
-
         mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -182,73 +174,7 @@ public class menu extends Application {
 
             }
         });
-
-
-
-
-
     }
-
-    private void CouleurJoueurs(){
-
-        VBox vBox = new VBox();
-        HBox[] hBoxes = new HBox[mon_model.getNbJoueurs()*2+1];
-
-        ColorPicker[] colorPickers = new ColorPicker[mon_model.getNbJoueurs()];
-        TextField[] textFields = new TextField[mon_model.getNbJoueurs()];
-        String[] tabStringTemp = new String[mon_model.getNbJoueurs()];
-        Color[] tabColorTemp = new Color[mon_model.getNbJoueurs()];
-        mon_model.setJoueurColors(tabColorTemp);
-        mon_model.setTabNomJoueurs(tabStringTemp);
-
-                for (int i = 1; i < mon_model.getNbJoueurs()+1; i++) {
-                    hBoxes[i] = new HBox();
-                    hBoxes[i+i] = new HBox();
-                    textFields[i-1] = new TextField();
-                    colorPickers[i-1] = new ColorPicker();
-                    String s = new String("Nom du joueur " + i + " ");
-                    hBoxes[i].getChildren().add(new Label(s));
-                    if (mon_model.isError())textFields[i-1].setText(mon_model.getTabNomJoueurs()[i-1]);
-                    hBoxes[i].getChildren().add(textFields[i-1]);
-                    s = ("Couleur du joueur " + i + " ");
-                    hBoxes[i+i].getChildren().add(new Label(s));
-                    if (mon_model.isError())colorPickers[i-1].setValue(mon_model.getJoueurColors()[i-1]);
-                        hBoxes[i+i].getChildren().add(colorPickers[i-1]);
-                    vBox.getChildren().add(hBoxes[i]);
-                    if (mon_model.isError())if (mon_model.getTabError()[i-1])vBox.getChildren().add(new Label("Vous devez donner un nom différent de null et des autres"));
-                    vBox.getChildren().add(hBoxes[i+i]);
-                    if (mon_model.isError())if (mon_model.getTabError()[i-1])vBox.getChildren().add(new Label("Vous devez fournir une couleur différentes des autres"));
-                    hBoxes[i].setAlignment(Pos.CENTER);
-                    hBoxes[i+i].setAlignment(Pos.CENTER);
-                }
-        vBox.getChildren().add(mon_model.getB_suivant());
-        vBox.setSpacing(10);
-        vBox.setAlignment(Pos.CENTER);
-
-        borderPane.setCenter(vBox);
-        mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                for (int i = 0; i < mon_model.getNbJoueurs(); i++) {
-                    mon_model.getTabNomJoueurs()[i] = textFields[i].getText();
-                    mon_model.getJoueurColors()[i] = colorPickers[i].getValue();
-                }
-                if (mon_model.verifDifferent() != 0){
-                    mon_model.setDisplay(3);
-                    switchDisplay();
-                }else{
-                    mon_model.setDisplay(0);
-                    switchDisplay();
-                    for (int i = 0; i < mon_model.getNbJoueurs(); i++) {
-                        System.out.println(mon_model.getTabNomJoueurs()[i]);
-                        System.out.println(mon_model.getJoueurColors()[i]);
-                    }
-                }
-            }
-        });
-    }
-
-
 
     private void MenuPrincipal() {
 
