@@ -136,13 +136,21 @@ public class menu extends Application {
 
         borderPane.setCenter(mon_model.getvBox());
         action();
-        
 
+
+        String[] tabTemp = new String[mon_model.getNbJoueurs()];
+        mon_model.setTabNomJoueurs(tabTemp);
         mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
+
                 mon_model.setNbJoueurs2(mon_model.getNbJoueurs2()-1);
                 System.out.println(mon_model.getNbJoueurs2());
+                    for (int i = 0; i < mon_model.getNbJoueurs(); i++) {
+                        tabTemp[i] = mon_model.getTabNomJoueurs()[i];
+                }
+                tabTemp[mon_model.getNbJoueurs2()] = mon_model.getLabelnom().getText();
+                mon_model.getLabelnom().setText("");
                 if (mon_model.getNbJoueurs2() == 0){
                     mon_model.setDisplay(0);
                     mon_model.getvBox().getChildren().clear();
@@ -156,6 +164,11 @@ public class menu extends Application {
                     mon_model.getCouleurs().getChildren().clear();
                     switchDisplay();
                 }
+                mon_model.setTabNomJoueurs(tabTemp);
+                for (int i = 0; i <mon_model.getTabNomJoueurs().length ; i++) {
+                    System.out.println(mon_model.getTabNomJoueurs()[i]);
+                }
+
 
             }
         });

@@ -62,7 +62,7 @@ public class Model extends Parent {
     private Rectangle gris = new Rectangle(25,25,Color.GREY);
     private Rectangle[] tabRectangle = {vert,jaune,rouge,bleu,noir,rose,violet,chartreuse,gris};
 
-    private String[] tabNomJoueurs = new String[nbJoueurs];
+    private String[] tabNomJoueurs = null;
     private Color[] joueurColors = new Color[nbJoueurs];
     //fonctions
 
