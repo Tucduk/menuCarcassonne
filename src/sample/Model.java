@@ -20,7 +20,7 @@ public class Model extends Parent {
     private int display = 0;
     private int nbJoueurs = 0;
     private String[] nomJoueur;
-    private boolean[][] tabError;
+    private boolean[] tabError;
     private boolean error = false;
 
 
@@ -62,54 +62,56 @@ public class Model extends Parent {
     private Rectangle gris = new Rectangle(25,25,Color.GREY);
     private Rectangle[] tabRectangle = {vert, jaune, rouge, bleu, noir, rose, violet, chartreuse, gris};
     private Rectangle[] tabRectangleTemp;
+    private Color[] joueurColors;
     public void initRectangle(){
         tabRectangleTemp = new Rectangle[tabRectangle.length-1];
-        if (nbJoueurs2 == nbJoueurs) {
-            tabRectangle[0] = vert;
-            tabRectangle[1] = jaune;
-            tabRectangle[2] = rouge;
-            tabRectangle[3] = bleu;
-            tabRectangle[4] = noir;
-            tabRectangle[5] = rose;
-            tabRectangle[6] = violet;
-            tabRectangle[7] = chartreuse;
-            tabRectangle[8] = gris;
-        }else
-        {
-            for (int i = 0; i < tabRectangleTemp.length-1; i++) {
+            for (int i = 0; i < tabRectangle.length-1; i++) {
                 tabRectangleTemp[i]=tabRectangle[i];
             }
             tabRectangle = tabRectangleTemp;
+    }
+    public void selectedColor(int i){
+        if (tabRectangle[tabRectangle.length-1] == vert){
+            joueurColors[i] = Color.GREEN;
+        }
+        if (tabRectangle[tabRectangle.length-1] == jaune){
+            joueurColors[i] = Color.GOLD;
+        }
+        if (tabRectangle[tabRectangle.length-1] == rouge){
+            joueurColors[i] = Color.RED;
+        }
+        if (tabRectangle[tabRectangle.length-1] == bleu){
+            joueurColors[i] = Color.BLUE;
+        }
+        if (tabRectangle[tabRectangle.length-1] == noir){
+            joueurColors[i] = Color.BLACK;
+        }
+        if (tabRectangle[tabRectangle.length-1] == rose){
+            joueurColors[i] = Color.PINK;
+        }
+        if (tabRectangle[tabRectangle.length-1] == violet){
+            joueurColors[i] = Color.BLUEVIOLET;
+        }
+        if (tabRectangle[tabRectangle.length-1] == chartreuse){
+            joueurColors[i] = Color.CHARTREUSE;
+        }
+        if (tabRectangle[tabRectangle.length-1] == gris){
+            joueurColors[i] = Color.GREY;
         }
     }
     private String[] tabNomJoueurs = null;
-    private Color[] joueurColors = new Color[nbJoueurs];
     //fonctions
 
     public int verifDifferent(){ //verification pour savoir si toute les valeurs sont différentes
                                   // et sinon savoir lesquelles ne vont pas
         int nberreur = 0;
-        tabError = new boolean[nbJoueurs][2];
-        for (int i = 0; i < nbJoueurs; i++) {
-            tabError[i][0] = false;
-            tabError[i][1] = false;
-        }
-        for (int i = 0; i < nbJoueurs; i++) {
-            for (int j = 1; j < nbJoueurs; j++) {
-                if (tabNomJoueurs[i].equals("")){
-                    tabError[i][0] = true;
-                    nberreur++;
-                }
-                if (i!=j){
-                    if (tabNomJoueurs[i].equals(tabNomJoueurs[j])){
-                        tabError[i][0] = true;
-                        tabError[j][0] = true;
-                        nberreur+=2;
-                    }
-                    if (joueurColors[i].equals(joueurColors[j])){
-                        tabError[i][1] = true;
-                        tabError[j][1] = true;
-                        nberreur+=2;
+        if (tabNomJoueurs[nbJoueurs2-1]==null || tabNomJoueurs[nbJoueurs2-1].equals("")){
+            nberreur++;
+        }else {
+            for (int i = 0; i < nbJoueurs - 1; i++) {
+                for (int j = 0; j < nbJoueurs; j++) {
+                    if (tabNomJoueurs[i] != null && tabNomJoueurs[j] != null && tabNomJoueurs[i].equals(tabNomJoueurs[j]) && i != j) {
+                        nberreur++;
                     }
                 }
             }
@@ -173,7 +175,7 @@ public class Model extends Parent {
         this.couleurSelectionnée = couleurSelectionnée;
     }
 
-    public void setTabError(boolean[][] tabError) {
+    public void setTabError(boolean[] tabError) {
         this.tabError = tabError;
     }
 
@@ -241,7 +243,7 @@ public class Model extends Parent {
         this.error = error;
     }
 
-    public boolean[][] getTabError() {
+    public boolean[] getTabError() {
         return tabError;
     }
 

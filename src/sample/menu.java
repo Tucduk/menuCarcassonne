@@ -8,17 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
-
-import java.util.List;
-
 
 public class menu extends Application {
 
@@ -79,6 +74,7 @@ public class menu extends Application {
             public void handle(MouseEvent event) {
                 mon_model.setNbJoueurs((int)mon_model.getComboBox().getValue());
                 mon_model.setNbJoueurs2(mon_model.getNbJoueurs());
+                mon_model.setJoueurColors(new Color[mon_model.getNbJoueurs()]);
                 System.out.println(mon_model.getNbJoueurs());
                 mon_model.setDisplay(3);
                 switchDisplay();
@@ -112,11 +108,9 @@ public class menu extends Application {
 
     private void CouleurJoueursBis(int numJoueur){
 
-        mon_model.initRectangle();
         mon_model.getNom().getChildren().add(mon_model.getNoms());
         mon_model.getNom().getChildren().add(mon_model.getLabelnom());
         mon_model.getNom().getChildren().add(mon_model.getCouleurSelectionnée());
-        System.out.println(mon_model.getTabRectangle().length-1);
         mon_model.getNom().getChildren().add(mon_model.getTabRectangle()[mon_model.getTabRectangle().length-1]);
         mon_model.getNom().setAlignment(Pos.CENTER);
 
@@ -137,39 +131,53 @@ public class menu extends Application {
         mon_model.getvBox().setSpacing(10);
 
         borderPane.setCenter(mon_model.getvBox());
+        if (mon_model.isError()){
+            mon_model.getvBox().getChildren().add(new Label("Vous devez donner un nom différent de null et des autres"));
+        }
         action();
 
 
-        String[] tabTemp = new String[mon_model.getNbJoueurs()];
-        mon_model.setTabNomJoueurs(tabTemp);
+
         mon_model.getB_suivant().setOnMousePressed(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-
-                mon_model.setNbJoueurs2(mon_model.getNbJoueurs2()-1);
-                mon_model.initRectangle();
-                System.out.println(mon_model.getNbJoueurs2());
-                    for (int i = 0; i < mon_model.getNbJoueurs(); i++) {
-                        tabTemp[i] = mon_model.getTabNomJoueurs()[i];
+                String[] tabTemp = new String[mon_model.getNbJoueurs()];
+                if (mon_model.getNbJoueurs() == mon_model.getNbJoueurs2()){
+                    mon_model.setTabNomJoueurs(tabTemp);
                 }
-                tabTemp[mon_model.getNbJoueurs2()] = mon_model.getLabelnom().getText();
-                mon_model.getLabelnom().setText("");
-                if (mon_model.getNbJoueurs2() == 0){
-                    mon_model.setDisplay(0);
-                    mon_model.getvBox().getChildren().clear();
-                    mon_model.getNom().getChildren().clear();
-                    mon_model.getCouleurs().getChildren().clear();
-                    switchDisplay();
-                }else {
-                    mon_model.setDisplay(3);
-                    mon_model.getvBox().getChildren().clear();
-                    mon_model.getNom().getChildren().clear();
-                    mon_model.getCouleurs().getChildren().clear();
-                    switchDisplay();
+                for (int i = 0; i < mon_model.getNbJoueurs()-1; i++) {
+                    tabTemp = mon_model.getTabNomJoueurs();
                 }
+                tabTemp[mon_model.getNbJoueurs2()-1] = mon_model.getLabelnom().getText();
                 mon_model.setTabNomJoueurs(tabTemp);
-                for (int i = 0; i <mon_model.getTabNomJoueurs().length ; i++) {
-                    System.out.println(mon_model.getTabNomJoueurs()[i]);
+                mon_model.selectedColor(mon_model.getNbJoueurs2()-1);
+                mon_model.verifDifferent();
+                if ( mon_model.isError() == false) {
+                    System.out.println("pas d'erreur");
+                    mon_model.setNbJoueurs2(mon_model.getNbJoueurs2() - 1);
+                    mon_model.initRectangle();
+                    System.out.println(mon_model.getNbJoueurs2());
+                    mon_model.getLabelnom().setText("");
+                    if (mon_model.getNbJoueurs2() == 0) {
+                        mon_model.setDisplay(0);
+                        mon_model.getvBox().getChildren().clear();
+                        mon_model.getNom().getChildren().clear();
+                        mon_model.getCouleurs().getChildren().clear();
+                        switchDisplay();
+                    } else {
+                        mon_model.setDisplay(3);
+                        mon_model.getvBox().getChildren().clear();
+                        mon_model.getNom().getChildren().clear();
+                        mon_model.getCouleurs().getChildren().clear();
+                        switchDisplay();
+                    }
+                }else{
+                    System.out.println("Erreur");
+                    mon_model.getvBox().getChildren().clear();
+                    mon_model.getNom().getChildren().clear();
+                    mon_model.getCouleurs().getChildren().clear();
+                    mon_model.setDisplay(3);
+                    switchDisplay();
                 }
 
             }
@@ -207,9 +215,9 @@ public class menu extends Application {
                     if (mon_model.isError())colorPickers[i-1].setValue(mon_model.getJoueurColors()[i-1]);
                         hBoxes[i+i].getChildren().add(colorPickers[i-1]);
                     vBox.getChildren().add(hBoxes[i]);
-                    if (mon_model.isError())if (mon_model.getTabError()[i-1][0])vBox.getChildren().add(new Label("Vous devez donner un nom différent de null et des autres"));
+                    if (mon_model.isError())if (mon_model.getTabError()[i-1])vBox.getChildren().add(new Label("Vous devez donner un nom différent de null et des autres"));
                     vBox.getChildren().add(hBoxes[i+i]);
-                    if (mon_model.isError())if (mon_model.getTabError()[i-1][1])vBox.getChildren().add(new Label("Vous devez fournir une couleur différentes des autres"));
+                    if (mon_model.isError())if (mon_model.getTabError()[i-1])vBox.getChildren().add(new Label("Vous devez fournir une couleur différentes des autres"));
                     hBoxes[i].setAlignment(Pos.CENTER);
                     hBoxes[i+i].setAlignment(Pos.CENTER);
                 }
