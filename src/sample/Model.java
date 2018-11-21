@@ -60,8 +60,28 @@ public class Model extends Parent {
     private Rectangle violet = new Rectangle(25,25,Color.BLUEVIOLET);
     private Rectangle chartreuse = new Rectangle(25,25,Color.CHARTREUSE);
     private Rectangle gris = new Rectangle(25,25,Color.GREY);
-    private Rectangle[] tabRectangle = {vert,jaune,rouge,bleu,noir,rose,violet,chartreuse,gris};
-
+    private Rectangle[] tabRectangle = {vert, jaune, rouge, bleu, noir, rose, violet, chartreuse, gris};
+    private Rectangle[] tabRectangleTemp;
+    public void initRectangle(){
+        tabRectangleTemp = new Rectangle[tabRectangle.length-1];
+        if (nbJoueurs2 == nbJoueurs) {
+            tabRectangle[0] = vert;
+            tabRectangle[1] = jaune;
+            tabRectangle[2] = rouge;
+            tabRectangle[3] = bleu;
+            tabRectangle[4] = noir;
+            tabRectangle[5] = rose;
+            tabRectangle[6] = violet;
+            tabRectangle[7] = chartreuse;
+            tabRectangle[8] = gris;
+        }else
+        {
+            for (int i = 0; i < tabRectangleTemp.length-1; i++) {
+                tabRectangleTemp[i]=tabRectangle[i];
+            }
+            tabRectangle = tabRectangleTemp;
+        }
+    }
     private String[] tabNomJoueurs = null;
     private Color[] joueurColors = new Color[nbJoueurs];
     //fonctions

@@ -112,9 +112,11 @@ public class menu extends Application {
 
     private void CouleurJoueursBis(int numJoueur){
 
+        mon_model.initRectangle();
         mon_model.getNom().getChildren().add(mon_model.getNoms());
         mon_model.getNom().getChildren().add(mon_model.getLabelnom());
         mon_model.getNom().getChildren().add(mon_model.getCouleurSelectionnée());
+        System.out.println(mon_model.getTabRectangle().length-1);
         mon_model.getNom().getChildren().add(mon_model.getTabRectangle()[mon_model.getTabRectangle().length-1]);
         mon_model.getNom().setAlignment(Pos.CENTER);
 
@@ -145,6 +147,7 @@ public class menu extends Application {
             public void handle(MouseEvent event) {
 
                 mon_model.setNbJoueurs2(mon_model.getNbJoueurs2()-1);
+                mon_model.initRectangle();
                 System.out.println(mon_model.getNbJoueurs2());
                     for (int i = 0; i < mon_model.getNbJoueurs(); i++) {
                         tabTemp[i] = mon_model.getTabNomJoueurs()[i];
@@ -168,7 +171,6 @@ public class menu extends Application {
                 for (int i = 0; i <mon_model.getTabNomJoueurs().length ; i++) {
                     System.out.println(mon_model.getTabNomJoueurs()[i]);
                 }
-
 
             }
         });
