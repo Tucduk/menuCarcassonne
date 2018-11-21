@@ -50,10 +50,11 @@ public class menu extends Application {
         borderPane.setMinSize(500,500);
     }
 
-    private void MenuJeu() {
+    public void MenuJeu() {
 
         VBox vBox = new VBox();
         HBox hBox = new HBox();
+        
         hBox.getChildren().add(mon_model.getL_NombreJoueurs());
         mon_model.getComboBox().setValue(2);
         hBox.getChildren().add(mon_model.getComboBox());
@@ -77,7 +78,7 @@ public class menu extends Application {
         });
 
     }
-    private void  action(){
+    public void  action(){
         for (int i = 0; i < mon_model.getTabRectangle().length-1; i++) {
             final int x = i;
             mon_model.getTabRectangle()[i].setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -100,7 +101,7 @@ public class menu extends Application {
         }
     }
 
-    private void CouleurJoueursBis(int numJoueur){
+    public void CouleurJoueursBis(int numJoueur){
 
         mon_model.getNom().getChildren().add(mon_model.getNoms());
         mon_model.getNom().getChildren().add(mon_model.getLabelnom());
@@ -176,7 +177,7 @@ public class menu extends Application {
         });
     }
 
-    private void MenuPrincipal() {
+    public void MenuPrincipal() {
 
         VBox vBox = new VBox();
 
